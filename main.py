@@ -12,24 +12,24 @@ class Fraction():
     ##Fin Constructor##
     
     ##Metodos##
-    def multiplication(self,other):
-        other.denominator = self.denominator * other.denominator       
-        self.denominator = self.numerator * other.numerator
-        mcma = self.mcm(other,1,0,0)
-        numerator = self.denominator/mcma
-        denominator = other.denominator/mcma
+    def multiplication(self,other):     ##Funcion Multiplicacion##
+        denominator = self.denominator * other.denominator       
+        numerator = self.numerator * other.numerator
+        mcma = self.greatest_common_divisor(other,0,numerator,denominator)           
+        numerator = numerator/mcma
+        denominator = denominator/mcma
         print("\nEl resultado de la multiplicacion:",numerator,"/",denominator)
     
-    def division(self,other):
-        other.denominator = self.numerator * other.denominator
-        self.denominator = self.denominator * other.numerator
-        mcma = self.mcm(other,1,0,0)
-        numerator = other.denominator/mcma
-        denominator = self.denominator/mcma
+    def division(self,other):       ##Funcion Division##
+        numerator = self.numerator * other.denominator
+        denominator = self.denominator * other.numerator
+        mcma = self.greatest_common_divisor(other,0,numerator,denominator)
+        numerator = numerator/mcma
+        denominator = denominator/mcma
         print("\nEl resultado de la division:",numerator,"/",denominator)
     
-    def mcm(self,other,i,b,c):
-        if((self.denominator!=0)and(i != 0)):
+    def greatest_common_divisor(self,other,i,b,c):                      #calcula el maximo comun divisor
+        if((self.denominator!=0)and(i != 0)):                           #para calcular solo para los denominadores
             temp = 0
             i = other.denominator
             a = self.denominator
@@ -38,7 +38,7 @@ class Fraction():
                 i = a % i
                 a = temp
             return(a)
-        elif(i==0):
+        elif(i==0):                                                     #calcula para cualquier numero
             temp = 0
             i = b
             a = c
@@ -48,27 +48,27 @@ class Fraction():
                 a = temp
             return(a)            
     
-    def addition(self,other):
-        if(self.denominator != other.denominator):
+    def addition(self,other):       ##Funcion Suma##
+        if(self.denominator != other.denominator):                       #En caso de tener denominador distinto
             denominantor = (self.denominator * other.denominator)
             numerator = (self.numerator*other.denominator)+(other.numerator*self.denominator)
-            mcma = self.mcm(other,0,denominantor,numerator)
+            mcma = self.greatest_common_divisor(other,0,denominantor,numerator)
             numerator = numerator/mcma
             denominator = denominantor/mcma
             print("\nEl resultado de la suma:",numerator,"/",denominator)
-        else:
+        else:                                                            #Mismo denominador
             numerator = self.numerator + other.numerator
             print("\nEl resultado de la suma:",numerator,"/",self.denominator)
 
-    def subtraction(self,other):
-        if(self.denominator != other.denominator):
+    def subtraction(self,other):        ##Funcion Resta##
+        if(self.denominator != other.denominator):                       #En caso de tener denominador distinto
             denominantor = (self.denominator * other.denominator)
             numerator = (self.numerator*other.denominator)-(other.numerator*self.denominator)
-            mcma = self.mcm(other,0,denominantor,numerator)
+            mcma = self.greatest_common_divisor(other,0,denominantor,numerator)
             numerator = numerator/mcma
             denominator = denominantor/mcma
             print("\nEl resultado de la resta:",numerator,"/",denominator)
-        else:
+        else:                                                            #Mismo denominador
             numerator = self.numerator - other.numerator
             print("\nEl resultado de la resta:",numerator,"/",self.denominator)
 
