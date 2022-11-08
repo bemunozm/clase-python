@@ -13,53 +13,61 @@ class Fraction():
     
     ##Metodos##
     def multiplication(self,other):
-        numerator = self.numerator * other.numerator
-        denominator = self.denominator * other.denominator
+        other.denominator = self.denominator * other.denominator       
+        self.denominator = self.numerator * other.numerator
+        mcma = self.mcm(other,1,0,0)
+        numerator = self.denominator/mcma
+        denominator = other.denominator/mcma
         print("\nEl resultado de la multiplicacion:",numerator,"/",denominator)
     
     def division(self,other):
-        numerator = self.numerator * other.denominator
-        denominator = self.denominator * other.numerator
+        other.denominator = self.numerator * other.denominator
+        self.denominator = self.denominator * other.numerator
+        mcma = self.mcm(other,1,0,0)
+        numerator = other.denominator/mcma
+        denominator = self.denominator/mcma
         print("\nEl resultado de la division:",numerator,"/",denominator)
     
-    def mcm(self,other):
-        temp = 0
-        i = other.denominator
-        a = self.denominator
-        while(i != 0):
-            temp = i
-            i = a % i
-            a = temp
-        return(a)
+    def mcm(self,other,i,b,c):
+        if((self.denominator!=0)and(i != 0)):
+            temp = 0
+            i = other.denominator
+            a = self.denominator
+            while(i != 0):
+                temp = i
+                i = a % i
+                a = temp
+            return(a)
+        elif(i==0):
+            temp = 0
+            i = b
+            a = c
+            while(i != 0):
+                temp = i
+                i = a % i
+                a = temp
+            return(a)            
     
     def addition(self,other):
         if(self.denominator != other.denominator):
-            mcma = self.mcm(other)
-            if(mcma != 1):
-                self.numerator = (self.numerator/(self.denominator/mcma))
-                other.numerator = other.numerator/(other.denominator/mcma)
-                numerator = int(self.numerator + other.numerator)
-                print("\nEl resultado de la suma:",numerator,"/",mcma)
-            else:
-                denominator = self.denominator * other.denominator
-                numerator = (self.numerator*other.denominator)+(other.numerator*self.denominator)
-                print("\nEl resultado de la suma:",numerator,"/",denominator)
+            denominantor = (self.denominator * other.denominator)
+            numerator = (self.numerator*other.denominator)+(other.numerator*self.denominator)
+            mcma = self.mcm(other,0,denominantor,numerator)
+            numerator = numerator/mcma
+            denominator = denominantor/mcma
+            print("\nEl resultado de la suma:",numerator,"/",denominator)
         else:
             numerator = self.numerator + other.numerator
             print("\nEl resultado de la suma:",numerator,"/",self.denominator)
 
     def subtraction(self,other):
         if(self.denominator != other.denominator):
-            mcma = self.mcm(other)
-            if(mcma != 1):
-                self.numerator = (self.numerator/(self.denominator/mcma))
-                other.numerator = other.numerator/(other.denominator/mcma)
-                numerator = int(self.numerator - other.numerator)
-                print("\nEl resultado de la resta:",numerator,"/",mcma)
-            else:
-                denominator = self.denominator * other.denominator
-                numerator = (self.numerator*other.denominator)-(other.numerator*self.denominator)
-                print("\nEl resultado de la resta:",numerator,"/",denominator)
+            denominantor = (self.denominator * other.denominator)
+            numerator = (self.numerator*other.denominator)-(other.numerator*self.denominator)
+            mcma = self.mcm(other,0,denominantor,numerator)
+            numerator = numerator/mcma
+            denominator = denominantor/mcma
+            print("\nEl resultado de la resta:",numerator,"/",denominator)
         else:
             numerator = self.numerator - other.numerator
             print("\nEl resultado de la resta:",numerator,"/",self.denominator)
