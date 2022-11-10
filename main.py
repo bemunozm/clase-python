@@ -117,3 +117,5 @@ match(opcion):
         f_1.multiplication(f_2)
     case '/':
         f_1.division(f_2)
+    case _:
+        print("Ingrese una opcion valida")
